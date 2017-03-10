@@ -1,10 +1,12 @@
 var index = 0;
 var totalThumb = peopleArray.length - 1;
+var timer;
 
 $(document).ready(function() {
   appendDom(peopleArray);
   addEventListeners();
   updateSelection();
+  timer = setInterval(nextThumb, 10000);
 });
 
 function appendDom (array) {
@@ -40,7 +42,9 @@ function nextThumb () {
   else {
     index++;
   }
-  updateSelection();
+  $('.portrait').fadeOut(500, updateSelection);
+  clearInterval(timer);
+  timer = setInterval(nextThumb, 10000);
 }
 
 function prevThumb () {
@@ -51,14 +55,18 @@ function prevThumb () {
   else {
     index--;
   }
-  updateSelection();
+  $('.portrait').fadeOut(500, updateSelection);
+  clearInterval(timer);
+  timer = setInterval(nextThumb, 10000);
 }
 
 function updateSelection() {
+
   var $el = $('.container').children('#' + index);
   console.log($el);
   $el.addClass('highlight');
   $('.name').text($el.data("name"));
   $('.shoutout').text($el.data("shoutout"));
   $('.portrait img').attr("src", $el.data("url"));
+  $('.portrait').fadeIn(500);
 }
