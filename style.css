@@ -27,3 +27,7 @@
 .button p {
   padding: 20px;
 }
+
+.highlight {
+  background-color: red;
+}
