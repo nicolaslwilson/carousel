@@ -1,0 +1,29 @@
+.portrait {
+  height: 300px;
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: gray;
+  display: inline-block;
+  margin: 1em;
+}
+.controls {
+  width: 500px;
+  margin: 0 auto;
+}
+.button {
+  width: 150px;
+  height: 80px;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  float: left;
+  margin: 10px;
+}
+.button p {
+  padding: 20px;
+}
