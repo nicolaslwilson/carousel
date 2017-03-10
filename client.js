@@ -18,7 +18,8 @@ function appendDom (array) {
 }
 
 function createThumb (name, shoutout, id) {
-  $('.container').append("<div id='"+ id +"' data-name='" + name +"' data-shoutout='" + shoutout +"' class='thumbnail'></div>");
+  var imgUrl = name.split(" ").join("%20");
+  $('.container').append("<div id='"+ id +"' data-name='" + name +"' data-shoutout='" + shoutout +"' class='thumbnail'><img src='images/"+ imgUrl + ".jpg'</div>");
 }
 
 function addEventListeners () {
