@@ -18,8 +18,13 @@ function appendDom (array) {
 }
 
 function createThumb (name, shoutout, id) {
-  var imgUrl = name.split(" ").join("%20");
-  $('.container').append("<div id='"+ id +"' data-name='" + name +"' data-shoutout='" + shoutout +"' class='thumbnail'><img src='images/"+ imgUrl + ".jpg'</div>");
+  var imgUrl = "images/" + name.split(" ").join("%20") + ".jpg";
+  $('.container').append("<div id='"+ id +"'class='thumbnail'><img src='"+ imgUrl + "'/></div>");
+  var $el = $('.container').children().last();
+  $el.data({"name": name,
+            "shoutout": shoutout,
+            "url": imgUrl
+  });
 }
 
 function addEventListeners () {
@@ -55,4 +60,5 @@ function updateSelection() {
   $el.addClass('highlight');
   $('.name').text($el.data("name"));
   $('.shoutout').text($el.data("shoutout"));
+  $('.portrait img').attr("src", $el.data("url"));
 }
