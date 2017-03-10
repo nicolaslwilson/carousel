@@ -42,7 +42,7 @@ function nextThumb () {
   else {
     index++;
   }
-  $('.portrait').fadeOut(500, updateSelection);
+  $('#portrait').fadeOut(500, updateSelection);
   clearInterval(timer);
   timer = setInterval(nextThumb, 10000);
 }
@@ -55,7 +55,7 @@ function prevThumb () {
   else {
     index--;
   }
-  $('.portrait').fadeOut(500, updateSelection);
+  $('#portrait').fadeOut(500, updateSelection);
   clearInterval(timer);
   timer = setInterval(nextThumb, 10000);
 }
@@ -67,6 +67,6 @@ function updateSelection() {
   $el.addClass('highlight');
   $('.name').text($el.data("name"));
   $('.shoutout').text($el.data("shoutout"));
-  $('.portrait img').attr("src", $el.data("url"));
-  $('.portrait').fadeIn(500);
+  $('#portrait img').attr("src", $el.data("url"));
+  $('#portrait').fadeIn(500);
 }
