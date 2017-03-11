@@ -1,12 +1,15 @@
 var index = 0;
 var totalThumb = peopleArray.length - 1;
+
+
 var timer;
+var timerInterval = 10000;
 
 $(document).ready(function() {
   appendDom(peopleArray);
   addEventListeners();
   updateSelection();
-  timer = setInterval(nextThumb, 10000);
+  resetTimer();
 });
 
 function appendDom (array) {
@@ -15,13 +18,13 @@ function appendDom (array) {
   for (var i = 0; i < array.length; i++) {
     name = array[i].name;
     shoutout = array[i].shoutout;
-    createThumb(name, shoutout, i);
+    addThumb(name, shoutout, i);
   }
 }
 
-function createThumb (name, shoutout, id) {
+function addThumb (name, shoutout, id) {
   var imgUrl = "images/" + name.split(" ").join("%20") + ".jpg";
-  $('.container').append("<div id='"+ id +"'class='thumbnail'><img src='"+ imgUrl + "'/></div>");
+  $('.container').append(createThumb(name, shoutout, id, imgUrl));
   var $el = $('.container').children().last();
   $el.data({"name": name,
             "shoutout": shoutout,
@@ -29,9 +32,14 @@ function createThumb (name, shoutout, id) {
   });
 }
 
+function createThumb(name, shoutout, id, imgUrl) {
+  return "<div id='"+ id +"'class='thumbnail'><img src='"+ imgUrl + "'/></div>";
+}
+
 function addEventListeners () {
   $('#next').on('click', nextThumb);
   $('#prev').on('click', prevThumb);
+  $('.container').on('click', '.thumbnail', selectThumb);
 }
 
 function nextThumb () {
@@ -43,8 +51,7 @@ function nextThumb () {
     index++;
   }
   $('#portrait').fadeOut(500, updateSelection);
-  clearInterval(timer);
-  timer = setInterval(nextThumb, 10000);
+  resetTimer();
 }
 
 function prevThumb () {
@@ -56,12 +63,17 @@ function prevThumb () {
     index--;
   }
   $('#portrait').fadeOut(500, updateSelection);
-  clearInterval(timer);
-  timer = setInterval(nextThumb, 10000);
+  resetTimer();
+}
+
+function selectThumb () {
+  $('.container').children('#' + index).removeClass('highlight');
+  index = $(this).attr('id');
+  $('#portrait').fadeOut(500, updateSelection);
+  resetTimer();
 }
 
 function updateSelection() {
-
   var $el = $('.container').children('#' + index);
   console.log($el);
   $el.addClass('highlight');
@@ -69,4 +81,12 @@ function updateSelection() {
   $('.shoutout').text($el.data("shoutout"));
   $('#portrait img').attr("src", $el.data("url"));
   $('#portrait').fadeIn(500);
+}
+
+function resetTimer() {
+  if (timer) {
+    clearInterval(timer);
+  }
+  timer = setInterval(nextThumb, timerInterval);
+  console.log(timer);
 }
