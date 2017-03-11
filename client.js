@@ -15,25 +15,37 @@ $(document).ready(function() {
 function appendDom (array) {
   var name;
   var shoutout;
+  var chiyak;
   for (var i = 0; i < array.length; i++) {
     name = array[i].name;
     shoutout = array[i].shoutout;
-    addThumb(name, shoutout, i);
+    chiyak = new Person (name, shoutout, i);
+    addThumb(chiyak);
   }
 }
 
-function addThumb (name, shoutout, id) {
-  var imgUrl = "images/" + name.split(" ").join("%20") + ".jpg";
-  $('.container').append(createThumb(name, shoutout, id, imgUrl));
+function Person (name, shoutout, id) {
+  this.name = name;
+  this.shoutout = shoutout;
+  this.id = id;
+}
+
+function addThumb (chiyak) {
+  chiyak.imgUrl = imageURLFromName(chiyak.name);
+  $('.container').append(createThumb(chiyak));
   var $el = $('.container').children().last();
-  $el.data({"name": name,
-            "shoutout": shoutout,
-            "url": imgUrl
+  $el.data({"name": chiyak.name,
+            "shoutout": chiyak.shoutout,
+            "url": chiyak.imgUrl
   });
 }
 
-function createThumb(name, shoutout, id, imgUrl) {
-  return "<div id='"+ id +"'class='thumbnail'><img src='"+ imgUrl + "'/></div>";
+function imageURLFromName(name) {
+  return "images/" + name.split(" ").join("%20") + ".jpg";
+}
+
+function createThumb(chiyak) {
+  return "<div id='"+ chiyak.id +"'class='thumbnail'><img src='"+ chiyak.imgUrl + "'/></div>";
 }
 
 function addEventListeners () {
@@ -43,37 +55,38 @@ function addEventListeners () {
 }
 
 function nextThumb () {
-  $('.container').children('#' + index).removeClass('highlight');
+  var prevIndex = index;
   if (index === totalThumb) {
     index = 0;
   }
   else {
     index++;
   }
-  updateSelection();
+  updateSelection(prevIndex);
   resetTimer();
 }
 
 function prevThumb () {
-  $('.container').children('#' + index).removeClass('highlight');
+  var prevIndex = index;
   if (index === 0) {
     index = totalThumb;
   }
   else {
     index--;
   }
-  updateSelection();
+  updateSelection(prevIndex);
   resetTimer();
 }
 
 function selectThumb () {
-  $('.container').children('#' + index).removeClass('highlight');
+  var prevIndex = index;
   index = $(this).attr('id');
-  updateSelection();
+  updateSelection(prevIndex);
   resetTimer();
 }
 
-function updateSelection() {
+function updateSelection(prevIndex) {
+  $('.container').children('#' + prevIndex).removeClass('highlight');
   var $el = $('.container').children('#' + index);
   $el.addClass('highlight');
   $('#portrait').fadeOut(500, function (){
