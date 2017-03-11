@@ -50,7 +50,7 @@ function nextThumb () {
   else {
     index++;
   }
-  $('#portrait').fadeOut(500, updateSelection);
+  updateSelection();
   resetTimer();
 }
 
@@ -62,21 +62,26 @@ function prevThumb () {
   else {
     index--;
   }
-  $('#portrait').fadeOut(500, updateSelection);
+  updateSelection();
   resetTimer();
 }
 
 function selectThumb () {
   $('.container').children('#' + index).removeClass('highlight');
   index = $(this).attr('id');
-  $('#portrait').fadeOut(500, updateSelection);
+  updateSelection();
   resetTimer();
 }
 
 function updateSelection() {
   var $el = $('.container').children('#' + index);
-  console.log($el);
   $el.addClass('highlight');
+  $('#portrait').fadeOut(500, function (){
+    updatePortrait($el);
+  });
+}
+
+function updatePortrait ($el) {
   $('.name').text($el.data("name"));
   $('.shoutout').text($el.data("shoutout"));
   $('#portrait img').attr("src", $el.data("url"));
