@@ -4,6 +4,7 @@ var totalThumb = peopleArray.length - 1;
 
 var timer = {};
 timer.interval = 10000;
+timer.fadeTime = 500;
 
 $(document).ready(function() {
   appendDom(peopleArray);
@@ -56,14 +57,18 @@ function addEventListeners () {
 }
 
 function nextThumb () {
+  //Store index of previous selection
   var prevIndex = index;
+  //Update index to current selection
   if (index === totalThumb) {
     index = 0;
   }
   else {
     index++;
   }
+  //Call updateSelection to update #portrait and .thumbnail
   updateSelection(prevIndex);
+  //Reset timer
   resetTimer();
 }
 
@@ -101,8 +106,8 @@ function updateSelection(prevIndex) {
   //Add .highlight to current selection
   var $el = $('.container').children('#' + index);
   $el.addClass('highlight');
-  //fadeOut previous #portrait data and call updatePortrait
-  $('#portrait').fadeOut(500, function (){
+  //fadeOut previous #portrait data and then call updatePortrait
+  $('#portrait').fadeOut(timer.fadeTime, function (){
     updatePortrait($el);
   });
 }
@@ -113,13 +118,13 @@ function updatePortrait ($el) {
   $('#portrait .shoutout').text($el.data("shoutout"));
   $('#portrait img').attr("src", $el.data("imgUrl"));
   //fadeIn updated #portrait div
-  $('#portrait').fadeIn(500);
+  $('#portrait').fadeIn(timer.fadeTime);
 }
 
 function resetTimer() {
   //If a timer already exists, clear it
   if (timer.id) {
-    clearInterval(timer);
+    clearInterval(timer.id);
   }
   //Create a new timer and assign it's id to timer.id.
   timer.id = setInterval(nextThumb, timer.interval);
