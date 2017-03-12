@@ -2,10 +2,10 @@
 var index = 0;
 var lastThumb = peopleArray.length - 1;
 
-
+//Timer object stores timer IDs from setInterval, as well as values for length of interval and transition time
 var timer = {};
 timer.interval = 10000;
-timer.fadeTime = 500;
+timer.fadeTime = 300;
 
 $(document).ready(function() {
   //Populate the page with data from peopleArray
@@ -31,18 +31,41 @@ function appendDom (array) {
   $('#totalThumbs').text(' / ' + (peopleArray.length));
 }
 
+function addEventListeners () {
+  $('.next').on('click', nextThumb);
+  $('.prev').on('click', prevThumb);
+  $('.thumbnails').on('click', '.thumbnail', selectThumb);
+}
+
+/**
+  **
+  *Creates a Chiyak object used to store name, shoutout, id and imgUrl.
+  *@function Chiyak
+  *@param {String} name      Name of person represented by this object
+  *@param {String} shoutout  Shoutout about this person
+  *@param {Number} id        ID derived from array index
+  **
+*/
 function Chiyak (name, shoutout, id) {
   this.name = name;
   this.shoutout = shoutout;
   this.id = id;
 }
 
+/**
+  **
+  *Adds a thumbnail to the page with data from the Chiyak object passed in
+  *@function addThumb
+  *@param {Object} chiyak  Chiyak object that the created thumbnail will represent on the page
+  **
+*/
 function addThumb (chiyak) {
+  //Call imageURLFromName to create an Identicon and store a reference to it
   chiyak.imgUrl = imageURLFromName(chiyak.name);
-
+  //Call createThumb and append the HTML returned to the page
   var thumbnail = createThumb(chiyak);
   $('.thumbnails').append(thumbnail);
-
+  //Store the data from the Chiyak object in the new thumbnail's data property
   var $el = $('.thumbnails').children().last();
   $el.data({"name": chiyak.name,
             "shoutout": chiyak.shoutout,
@@ -50,7 +73,16 @@ function addThumb (chiyak) {
   });
 }
 
+/**
+  **
+  *Creates a PNG Identicon from a hash of the Chiyak's name, return a reference to that image
+  *@function imageURLFromName
+  *@param {String} name Name of Chiyak who will be represented by this image
+  *@return {String}     String that can be used inside an img element to reference the icon
+  **
+*/
 function imageURLFromName(name) {
+  //Create a hash from
   var hash = name.hashCode().toString();
   var options = {
     background: [255,255,255,0],
@@ -60,16 +92,25 @@ function imageURLFromName(name) {
   return "data:image/png;base64," + icon;
 }
 
+/**
+  **
+  *Creates HTML elements for a thumbnail representing a Chiyak
+  *@function createThumb
+  *@param {Object} chiyak Chiyak object that the created thumbnail will represent on the page
+  *@return {String}       HTML data as a string
+  **
+*/
 function createThumb(chiyak) {
   return "<div id='"+ chiyak.id +"'class='thumbnail'><img src='" + chiyak.imgUrl + "'/></div>";
 }
 
-function addEventListeners () {
-  $('.next').on('click', nextThumb);
-  $('.prev').on('click', prevThumb);
-  $('.container').on('click', '.thumbnail', selectThumb);
-}
-
+/**
+  **
+  *Advances selection to next thumbnail in the carousel,
+  *calls updateSelection to update the page and resets the autoadvance timer.
+  *@function nextThumb
+  **
+*/
 function nextThumb () {
   //Store index of previous selection
   var prevIndex = index;
@@ -87,6 +128,13 @@ function nextThumb () {
   resetTimer();
 }
 
+/**
+  **
+  *Returns selection to previous thumbnail in the carousel,
+  *calls updateSelection to update the page and resets the autoadvance timer.
+  *@function prevThumb
+  **
+*/
 function prevThumb () {
   //Store index of previous selection
   var prevIndex = index;
@@ -103,6 +151,13 @@ function prevThumb () {
   resetTimer();
 }
 
+/**
+  **
+  *Changes selection to the clicked thumbnail in the carousel,
+  *calls updateSelection to update the page and resets the autoadvance timer.
+  *@function selectThumb
+  **
+*/
 function selectThumb () {
   //We only need to update the page if the clicked div is different than the current selection
   if (index !== $(this).attr('id')) {
@@ -117,6 +172,13 @@ function selectThumb () {
   resetTimer();
 }
 
+/**
+  **
+  *Updates page to indicate current selection
+  *Calls updatePortrait to update #portrait with data from current selection
+  *@function updateSelection
+  **
+*/
 function updateSelection(prevIndex) {
   //Remove .highlight on previous selection
   var $prev = $('.thumbnails').children('#' + prevIndex);
@@ -134,9 +196,9 @@ function updateSelection(prevIndex) {
 
 
 /**
-  Updates #portrait div with data from the selected
-  *@function resetTimer
-  *@return
+  **
+  *Updates #portrait div with data from the selected
+  *@function updatePortrait
   **
 */
 function updatePortrait ($el) {
@@ -151,7 +213,6 @@ function updatePortrait ($el) {
 /**
   Resets current timer, if any, and creates new timer
   *@function resetTimer
-  *@return
   **
 */
 function resetTimer() {

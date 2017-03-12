@@ -1,6 +1,7 @@
 body {
   min-height: 100%;
 }
+
 #portrait {
   height: 300px;
   max-height: 300px;
@@ -10,17 +11,21 @@ body {
   color: #0FACF3;
 
 }
+
 #portrait img {
   max-height: 60%;
 }
+
 #portrait .name {
   font-family: Helvetica, sans-serif, serif;
 }
+
 #portrait .shoutout {
   font-family: Helvetica, sans-serif, serif;
   background-color: #0FACF3;
   color: white;
   padding: 1em;
+  line-height: 1.3em;
 }
 
 
@@ -35,11 +40,8 @@ body {
 .thumbnail {
   width: 50px;
   height: 50px;
-  border-radius: 5px;
-  /*background-color: gray;*/
   display: inline-block;
   margin: 0.5em;
-
 }
 
 .thumbnail img {
@@ -52,6 +54,7 @@ body {
   color:#0FACF3;
   font-family: Helvetica, sans-serif, serif;
 }
+
 #indexBox p {
   margin: 0;
 }
@@ -75,6 +78,7 @@ body {
 .button:hover {
   background-color: #6fcdf7;
 }
+
 .button p {
   padding: 10px;
   font-size: 1.2em;
