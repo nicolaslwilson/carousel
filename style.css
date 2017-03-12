@@ -7,6 +7,7 @@ body {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
+  color: #0FACF3;
 
 }
 #portrait img {
@@ -17,13 +18,18 @@ body {
 }
 #portrait .shoutout {
   font-family: "Helvetica", sans-serif, serif;
+  background-color: #0FACF3;
+  color: white;
+  padding: 1em;
 }
 
 
 .container {
-  margin: 50px;
+  margin: 80px 50px 50px 50px;
   clear: both;
   text-align: center;
+  padding: 1em;
+  border: 1px solid #0FACF3;
 }
 
 .thumbnail {
