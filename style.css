@@ -14,10 +14,10 @@ body {
   max-height: 60%;
 }
 #portrait .name {
-  font-family: "Helvetica", sans-serif, serif;
+  font-family: Helvetica, sans-serif, serif;
 }
 #portrait .shoutout {
-  font-family: "Helvetica", sans-serif, serif;
+  font-family: Helvetica, sans-serif, serif;
   background-color: #0FACF3;
   color: white;
   padding: 1em;
@@ -38,7 +38,7 @@ body {
   border-radius: 5px;
   /*background-color: gray;*/
   display: inline-block;
-  margin: 1em;
+  margin: 0.5em;
 
 }
 
@@ -46,8 +46,16 @@ body {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
 }
+
+#indexBox {
+  color:#0FACF3;
+  font-family: Helvetica, sans-serif, serif;
+}
+#indexBox p {
+  margin: 0;
+}
+
 .controls {
   text-align: center;
 }
