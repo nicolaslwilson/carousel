@@ -44,11 +44,16 @@ function addThumb (chiyak) {
 
 function imageURLFromName(name) {
   var hash = name.hashCode().toString();
-  return new Identicon(hash, 420).toString();
+  var options = {
+    background: [255,255,255,0],
+    size: 500
+  };
+  var icon = new Identicon(hash, options).toString();
+  return "data:image/png;base64," + icon;
 }
 
 function createThumb(chiyak) {
-  return "<div id='"+ chiyak.id +"'class='thumbnail'><img src='data:image/png;base64," + chiyak.imgUrl + "'/></div>";
+  return "<div id='"+ chiyak.id +"'class='thumbnail'><img src='" + chiyak.imgUrl + "'/></div>";
 }
 
 function addEventListeners () {
@@ -117,7 +122,7 @@ function updatePortrait ($el) {
   //Update #portrait div with name, shoutout and image for currently selected chiyak
   $('#portrait .name').text($el.data("name"));
   $('#portrait .shoutout').text($el.data("shoutout"));
-  $('#portrait img').attr("src", "data:image/png;base64," + $el.data("imgUrl"));
+  $('#portrait img').attr("src", $el.data("imgUrl"));
   //fadeIn updated #portrait div
   $('#portrait').fadeIn(timer.fadeTime);
 }
