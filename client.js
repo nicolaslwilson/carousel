@@ -82,13 +82,15 @@ function addThumb (chiyak) {
   **
 */
 function imageURLFromName(name) {
-  //Create a hash from
+  //Create a hash from a name string
   var hash = name.hashCode().toString();
   var options = {
     background: [255,255,255,0],
     size: 500
   };
+  //Creates an identicon from the hash
   var icon = new Identicon(hash, options).toString();
+  //Returns a string containing a reference to the created icon
   return "data:image/png;base64," + icon;
 }
 
@@ -114,7 +116,7 @@ function createThumb(chiyak) {
 function nextThumb () {
   //Store index of previous selection
   var prevIndex = index;
-  //Update index to current selection
+  //Update index to current selection, if at last index, cycle to first index
   console.log(index, lastThumb);
   if (index === lastThumb) {
     index = 0;
@@ -138,7 +140,7 @@ function nextThumb () {
 function prevThumb () {
   //Store index of previous selection
   var prevIndex = index;
-  //Update index to current selection
+  //Update index to current selection, if at first index, cycle to last index
   if (index === 0) {
     index = lastThumb;
   }
