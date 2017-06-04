@@ -1,21 +1,27 @@
-#Weekend Challenge 01
+# Weekend Challenge 01
 
-Welcome to your first-weekend challenge!
+This was the first weekend challenge we were given at Prime Digital Academy.
 
-We have created a Javascript file that has an array of Objects. Each one of you is represented as an object with some shout out feedback given to you by your peers! Awesome right?
+For this challenge the assignment was to build a carousel to display an array of Objects representing people in our cohort.
 
-What I would like to see on the DOM, is one person at a time represented by showing their name and their shout out. On the screen should also be "Prev" and "Next" buttons, that when pressed, show the information for the next or previous person. These should wrap - "prev" when on the first person should wrap around to show the last person and vice versa. 
+The carousel needed to have buttons to navigate through the array and should wrap around when the navigating past the end of the array.
 
-Also on the DOM should be a display showing the number of people and which is being currently viewed (eg. "2/20")
+Additionally, the carousel should display the current index being viewed and the total number of elements in the carousel.
 
-When a person is displayed, show their name (first & last) and their shout out. Only one person should be shown at any given time. 
+Finally, the carousel should include a fade when transitioning between elements and advances automatically if no input has been given in the last 10 seconds.
 
-Possible look for the final application:
+## Technologies Used
 
-http://i.imgur.com/9Dkkrci.png
+* HTML
+* CSS
+* JavaScript
+* jQuery
+* [Identicon.js](https://github.com/stewartlord/identicon.js/tree/master)
 
-###HARD MODE
-Include a fade out and fade in animation in-between transitioning people.
+## Demo
 
-###PRO MODE
-Include a timer that moves to the next person if the user is not clicking on next or prev. If the user clicks on next or prev, the timer should be reset. The timer should transition between people every 10 seconds. 
+This project can be viewed [here](https://nicolaslwilson.github.io/jQueryCarousel/).
+
+## Acknowledgments
+
+Thanks to Wes Widner for his JavaScript implentation of Java's string.hashCode() method found [here](http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/).
