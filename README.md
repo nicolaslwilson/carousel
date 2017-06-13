@@ -20,6 +20,8 @@ Finally, the carousel should include a fade when transitioning between elements 
 
 ## Demo
 
+![preview](jQueryCarousel.png)
+
 This project can be viewed [here](https://nicolaslwilson.github.io/jQueryCarousel/).
 
 ## Acknowledgments
